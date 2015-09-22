@@ -109,7 +109,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         #verify return value
         assert returns == {'rc': 0, 'reason': 'Devices: 0000,0002-0018  Removed sucessfully'}
 
-    def test_add_invalidparameter(self):
+    def test_remove_invalidparameter(self):
         """
         unittest call remove with invalid parameter
         """
