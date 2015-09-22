@@ -27,11 +27,11 @@ cio_ignore = "cio_ignore"
 
 class CIOIgnoreModel(object):
 
-    def lookup(self, params):
-        return {'dummy': "dummy"}
-
-    def adddummy(selfself,params):
-        return {'dummy': "dummytest"}
+#     def lookup(self, params):
+#         return {'dummy': "dummy"}
+# 
+#     def adddummy(selfself,params):
+#         return {'dummy': "dummytest"}
 
 
     def add(self, devices):
