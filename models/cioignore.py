@@ -26,7 +26,7 @@ wok_log = cherrypy.log.error_log
 cio_ignore = "cio_ignore"
 
 
-class CIOIgnorelistModel(object):
+class CIOIgnoreModel(object):
 
     def lookup(self, params):
         return {'dummy': "dummy"}
