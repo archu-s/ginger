@@ -22,7 +22,6 @@ from wok.exception import OperationFailed, InvalidParameter
 import cherrypy
 
 wok_log = cherrypy.log.error_log
-
 cio_ignore = "cio_ignore"
 
 
