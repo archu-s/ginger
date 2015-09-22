@@ -31,6 +31,7 @@ from users import UsersModel, UserModel
 from wok import config
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
+from cioignore import CIOIgnoreModel
 
 
 class GingerModel(BaseModel):
@@ -58,9 +59,10 @@ class GingerModel(BaseModel):
         ibm_sep = SepModel()
         subscription = SubscriptionModel()
         subscriber = SubscribersModel()
+        cioignore = CIOIgnoreModel()
 
         features = [firmware, backup, network, powerprofiles, san_adapters,
-                    sensors, ibm_sep, users]
+                    sensors, ibm_sep, users,cioignore]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -73,5 +75,5 @@ class GingerModel(BaseModel):
             san_adapters, san_adapter,
             sensors,
             ibm_sep, subscription, subscriber,
-            capabilities]
+            capabilities,cioignore]
         super(GingerModel, self).__init__(sub_models)
