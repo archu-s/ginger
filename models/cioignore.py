@@ -47,7 +47,7 @@ class CIOIgnoreModel(object):
         """
         # Check the instance of devices.
         if not (isinstance(devices, list)):
-            raise InvalidParameter('GINS390', {'rc': '', 'reason': 'input must be of type list'})
+            raise InvalidParameter('GINS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
         # Convert the list to String with comma seperated value
         devices = ','.join(str(device) for device in devices)
         # command to add devices into cio_ignore list
@@ -74,7 +74,7 @@ class CIOIgnoreModel(object):
         """
         # Check the instance of devices.
         if not (isinstance(devices, list)):
-            raise InvalidParameter('GINS390', {'rc': '', 'reason': 'input must be of type list'})
+            raise InvalidParameter('GINS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
         # Convert the list to String with comma seperated value
         devices = ','.join(str(device) for device in devices)
         # command to add devices into cio_ignore list
