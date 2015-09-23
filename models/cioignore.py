@@ -47,7 +47,7 @@ class CIOIgnoreModel(object):
         """
         # Check the instance of devices.
         if not (isinstance(devices, list)):
-            raise InvalidParameter('GINS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
+            raise InvalidParameter('GS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
         # Convert the list to String with comma seperated value
         devices = ','.join(str(device) for device in devices)
         # command to add devices into cio_ignore list
@@ -55,7 +55,7 @@ class CIOIgnoreModel(object):
         output, err, rc = utils.run_command(command)
         if rc:
             wok_log.error(err)
-            raise OperationFailed('GINS390ADDIGRE', {'rc': rc, 'reason': err})
+            raise OperationFailed('GS390ADDIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Added sucessfully, rc: %d' % (devices, rc))
         return {'rc': rc, 'reason': 'Devices: %s  Added sucessfully' % devices}
@@ -74,7 +74,7 @@ class CIOIgnoreModel(object):
         """
         # Check the instance of devices.
         if not (isinstance(devices, list)):
-            raise InvalidParameter('GINS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
+            raise InvalidParameter('GS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
         # Convert the list to String with comma seperated value
         devices = ','.join(str(device) for device in devices)
         # command to add devices into cio_ignore list
@@ -82,7 +82,7 @@ class CIOIgnoreModel(object):
         output, err, rc = utils.run_command(command)
         if rc:
             wok_log.error(err)
-            raise OperationFailed('GINS390RMVIGRE', {'rc': rc, 'reason': err})
+            raise OperationFailed('GS390RMVIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Removed sucessfully, rc: %d' % (devices, rc))
         return {'rc': rc, 'reason': 'Devices: %s  Removed sucessfully' % devices}
