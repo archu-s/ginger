@@ -30,6 +30,7 @@ models_PYTHON = \
 	sanadapters.py \
 	sensors.py \
 	users.py \
+	cioignore.py \
 	$(NULL)
 
 modelsdir = $(pythondir)/wok/plugins/ginger/models

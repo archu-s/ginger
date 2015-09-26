@@ -58,7 +58,6 @@ class CIOIgnoreModel(object):
             raise OperationFailed('GS390ADDIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Added sucessfully, rc: %d' % (devices, rc))
-        return {'rc': rc, 'reason': 'Devices: %s  Added sucessfully' % devices}
 
 
     def remove(self, devices):
@@ -85,4 +84,3 @@ class CIOIgnoreModel(object):
             raise OperationFailed('GS390RMVIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Removed sucessfully, rc: %d' % (devices, rc))
-        return {'rc': rc, 'reason': 'Devices: %s  Removed sucessfully' % devices}
