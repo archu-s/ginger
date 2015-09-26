@@ -22,6 +22,7 @@ import mock
 import wok.exception as exception
 from models.cioignore import CIOIgnoreModel
 
+
 class CIOIgnoreUnitTests(unittest.TestCase):
     """
     Unit tests for CIO Ignore Model using mock.patch
@@ -39,18 +40,14 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         devices = ["0000", "0002-0018"]
         devicestr = "0000,0002-0018"
         mock_utils.run_command.return_value = ["", "", 0]
-        returns = cioignore.add(devices)
+        cioignore.add(devices)
 
-        #verify if run_command get called with the command
+        # verify if run_command get called with the command
         command = ['cio_ignore', '-a', devicestr]
         mock_utils.run_command.assert_called_with(command)
 
-        #verify if log get called
+        # verify if log get called
         mock_log.info.assert_called_with('Devices: %s  Added sucessfully, rc: %d' % (devicestr, 0))
-
-        #verify return value
-        assert returns == {'rc': 0, 'reason': 'Devices: 0000,0002-0018  Added sucessfully'}
-
 
     def test_add_invalidparameter(self):
         """
@@ -58,8 +55,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         """
         cioignore = CIOIgnoreModel()
         devicestr = "0000,0002-0018"
-        self.assertRaises(exception.InvalidParameter, cioignore.add,devicestr)
-
+        self.assertRaises(exception.InvalidParameter, cioignore.add, devicestr)
 
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
@@ -70,24 +66,23 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         mock_utils: mock of wok.utils imported in models.cioignore
         """
         cioignore = CIOIgnoreModel()
-        devices = ["0000", "0002-0018","kjhfg","0020"]
+        devices = ["0000", "0002-0018", "kjhfg", "0020"]
         devicestr = "0000,0002-0018,kjhfg,0020"
         mock_utils.run_command.return_value = ["", "cio_ignore: Error: device ID 'kjhfg': device number is not valid", 1]
-        #returns = cioignore.add(devices)
 
         # add method should throw exception
-        self.assertRaises(exception.OperationFailed, cioignore.add,devices)
+        self.assertRaises(exception.OperationFailed, cioignore.add, devices)
 
-        #verify if run_command get called with the command
+        # verify if run_command get called with the command
         command = ['cio_ignore', '-a', devicestr]
         mock_utils.run_command.assert_called_with(command)
 
-        #verify if log get called
+        # verify if log get called
         mock_log.error.assert_called_with('cio_ignore: Error: device ID \'kjhfg\': device number is not valid')
 
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
-    def test_remove_devicesfrom_ignorelist(self,mock_log,mock_utils):
+    def test_remove_devicesfrom_ignorelist(self, mock_log, mock_utils):
         """
         unittest to remove valid list of devices from ignorelist
         mock_log: mock of wok_log present in models.cioignore
@@ -97,17 +92,14 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         devices = ["0000", "0002-0018"]
         devicestr = "0000,0002-0018"
         mock_utils.run_command.return_value = ["", "", 0]
-        returns = cioignore.remove(devices)
+        cioignore.remove(devices)
 
-        #verify if run_command get called with the command
+        # verify if run_command get called with the command
         command = ['cio_ignore', '-r', devicestr]
         mock_utils.run_command.assert_called_with(command)
 
-        #verify if log get called
+        # verify if log get called
         mock_log.info.assert_called_with('Devices: %s  Removed sucessfully, rc: %d' % (devicestr, 0))
-
-        #verify return value
-        assert returns == {'rc': 0, 'reason': 'Devices: 0000,0002-0018  Removed sucessfully'}
 
     def test_remove_invalidparameter(self):
         """
@@ -115,27 +107,27 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         """
         cioignore = CIOIgnoreModel()
         devicestr = "0000,0002-0018"
-        self.assertRaises(exception.InvalidParameter, cioignore.remove,devicestr)
+        self.assertRaises(exception.InvalidParameter, cioignore.remove, devicestr)
 
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
-    def test_add_valid_invalid_devicefrom_ignorelist(self,mock_log,mock_utils):
+    def test_add_valid_invalid_devicefrom_ignorelist(self, mock_log, mock_utils):
         """
         unittest to remove valid and invalid devices into list of devices to add in ignorelist
         mock_log: mock of wok_log present in models.cioignore
         mock_utils: mock of wok.utils imported in models.cioignore
         """
         cioignore = CIOIgnoreModel()
-        devices = ["0000", "0002-0018","kjhfg","0020"]
+        devices = ["0000", "0002-0018", "kjhfg", "0020"]
         devicestr = "0000,0002-0018,kjhfg,0020"
         mock_utils.run_command.return_value = ["", "cio_ignore: Error: device ID 'kjhfg': device number is not valid", 1]
 
         # remove method should throw exception
-        self.assertRaises(exception.OperationFailed, cioignore.remove,devices)
+        self.assertRaises(exception.OperationFailed, cioignore.remove, devices)
 
-        #verify if run_command get called with the command
+        # verify if run_command get called with the command
         command = ['cio_ignore', '-r', devicestr]
         mock_utils.run_command.assert_called_with(command)
 
-        #verify if log get called
+        # verify if log get called
         mock_log.error.assert_called_with('cio_ignore: Error: device ID \'kjhfg\': device number is not valid')
