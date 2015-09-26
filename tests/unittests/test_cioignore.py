@@ -40,7 +40,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         devices = ["0000", "0002-0018"]
         devicestr = "0000,0002-0018"
         mock_utils.run_command.return_value = ["", "", 0]
-        cioignore.add(devices)
+        cioignore.add('', devices)
 
         # verify if run_command get called with the command
         command = ['cio_ignore', '-a', devicestr]
@@ -55,7 +55,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         """
         cioignore = CIOIgnoreModel()
         devicestr = "0000,0002-0018"
-        self.assertRaises(exception.InvalidParameter, cioignore.add, devicestr)
+        self.assertRaises(exception.InvalidParameter, cioignore.add, '', devicestr)
 
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
@@ -71,7 +71,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         mock_utils.run_command.return_value = ["", "cio_ignore: Error: device ID 'kjhfg': device number is not valid", 1]
 
         # add method should throw exception
-        self.assertRaises(exception.OperationFailed, cioignore.add, devices)
+        self.assertRaises(exception.OperationFailed, cioignore.add, '', devices)
 
         # verify if run_command get called with the command
         command = ['cio_ignore', '-a', devicestr]
@@ -92,7 +92,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         devices = ["0000", "0002-0018"]
         devicestr = "0000,0002-0018"
         mock_utils.run_command.return_value = ["", "", 0]
-        cioignore.remove(devices)
+        cioignore.remove('', devices)
 
         # verify if run_command get called with the command
         command = ['cio_ignore', '-r', devicestr]
@@ -107,7 +107,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         """
         cioignore = CIOIgnoreModel()
         devicestr = "0000,0002-0018"
-        self.assertRaises(exception.InvalidParameter, cioignore.remove, devicestr)
+        self.assertRaises(exception.InvalidParameter, cioignore.remove, '', devicestr)
 
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
@@ -123,7 +123,7 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         mock_utils.run_command.return_value = ["", "cio_ignore: Error: device ID 'kjhfg': device number is not valid", 1]
 
         # remove method should throw exception
-        self.assertRaises(exception.OperationFailed, cioignore.remove, devices)
+        self.assertRaises(exception.OperationFailed, cioignore.remove, '', devices)
 
         # verify if run_command get called with the command
         command = ['cio_ignore', '-r', devicestr]
@@ -131,3 +131,25 @@ class CIOIgnoreUnitTests(unittest.TestCase):
 
         # verify if log get called
         mock_log.error.assert_called_with('cio_ignore: Error: device ID \'kjhfg\': device number is not valid')
+
+    @mock.patch('models.cioignore.platform')
+    def test_feature_avaiable(self, mock_platform):
+        """
+        unittest to assert true if platform.machine() startwith s390x
+        mock_platform: mock of platform imported in models.cioignore
+        """
+        cioignore = CIOIgnoreModel()
+        mock_platform.machine().return_value = 's390x'
+        returns = cioignore.is_feature_available()
+        assert returns
+
+    @mock.patch('models.cioignore.platform')
+    def test_feature_not_avaiable(self, mock_platform):
+        """
+        unittest to assert false if platform.machine() deos not startwith s390x
+        mock_platform: mock of platform imported in models.cioignore
+        """
+        cioignore = CIOIgnoreModel()
+        mock_platform.machine.return_value = 'x86_64'
+        returns = cioignore.is_feature_available()
+        assert not returns
