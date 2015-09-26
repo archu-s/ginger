@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
+import cherrypy
+import platform
 import wok.utils as utils
 from wok.exception import OperationFailed, InvalidParameter
-import cherrypy
 
 wok_log = cherrypy.log.error_log
 cio_ignore = "cio_ignore"
@@ -27,14 +27,14 @@ cio_ignore = "cio_ignore"
 
 class CIOIgnoreModel(object):
 
-#     def lookup(self, params):
-#         return {'dummy': "dummy"}
+    # def lookup(self, params):
+    #     return {'dummy': "dummy"}
 # 
 #     def adddummy(selfself,params):
 #         return {'dummy': "dummytest"}
 
 
-    def add(self, devices):
+    def add(self, name, devices):
         """
         Add one or more device IDs to the blacklist.
         DEVID can be a single device ID. or it can be a range of device IDs, or  a comma-separated list of device IDs
@@ -47,7 +47,7 @@ class CIOIgnoreModel(object):
         """
         # Check the instance of devices.
         if not (isinstance(devices, list)):
-            raise InvalidParameter('GS390INVPARAM', {'rc': '', 'reason': 'input must be of type list'})
+            raise InvalidParameter('GS390INVPARAM', {'reason': 'input must be of type list'})
         # Convert the list to String with comma seperated value
         devices = ','.join(str(device) for device in devices)
         # command to add devices into cio_ignore list
@@ -60,7 +60,7 @@ class CIOIgnoreModel(object):
         wok_log.info('Devices: %s  Added sucessfully, rc: %d' % (devices, rc))
 
 
-    def remove(self, devices):
+    def remove(self, name, devices):
         """
         Remove one or more device IDs from the blacklist.
         DEVID can be a single device ID. or it can be a range of device IDs, or  a comma-separated list of device IDs
@@ -84,3 +84,6 @@ class CIOIgnoreModel(object):
             raise OperationFailed('GS390RMVIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Removed sucessfully, rc: %d' % (devices, rc))
+
+    def is_feature_available(self):
+        return platform.machine().startswith('s390x')
