@@ -84,6 +84,19 @@ class CIOIgnoreModel(object):
             raise OperationFailed('GS390RMVIGRE', {'rc': rc, 'reason': err})
 
         wok_log.info('Devices: %s  Removed sucessfully, rc: %d' % (devices, rc))
+        
+    def purge(self, name):
+        """
+        purge all offline devices in blacklist
+        """
+        # command to purge blacklist offlined devices
+        command = [cio_ignore, '-p']
+        output, err, rc = utils.run_command(command)
+        if rc:
+            wok_log.error(err)
+            raise OperationFailed('GS390PGEIGRE', {'rc': rc, 'reason': err})
+
+        wok_log.info('Sucessfully purged all offlined devices present in blacklist sucessfully, rc: %d' % (rc))
 
     def is_feature_available(self):
         return platform.machine().startswith('s390x')
