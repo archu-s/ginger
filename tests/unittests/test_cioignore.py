@@ -149,6 +149,25 @@ class CIOIgnoreUnitTests(unittest.TestCase):
 
         # verify if log get called
         mock_log.error.assert_called_with('Sucessfully purge cioignore blacklist offlined devices')
+        
+    @mock.patch('models.cioignore.utils')
+    @mock.patch('models.cioignore.wok_log')
+    def test_exception_purge_ignorelist(self, mock_log, mock_utils):
+        """
+        unittest to test exception on purge offline devices present in ignorelist
+        mock_log: mock of wok_log present in models.cioignore
+        mock_utils: mock of wok.utils imported in models.cioignore
+        """
+        cioignore = CIOIgnoreModel()
+        mock_utils.run_command.return_value = ["", "", 1]
+        
+        # purge method should throw exception
+        self.assertRaises(exception.OperationFailed, cioignore.purge, '')
+
+        # verify if run_command get called with the command
+        command = ['cio_ignore', '-p']
+        mock_utils.run_command.assert_called_with(command)
+
 
     @mock.patch('models.cioignore.platform')
     def test_feature_avaiable(self, mock_platform):
