@@ -131,6 +131,24 @@ class CIOIgnoreUnitTests(unittest.TestCase):
 
         # verify if log get called
         mock_log.error.assert_called_with('cio_ignore: Error: device ID \'kjhfg\': device number is not valid')
+        
+    @mock.patch('models.cioignore.utils')
+    @mock.patch('models.cioignore.wok_log')
+    def test_purge_ignorelist(self, mock_log, mock_utils):
+        """
+        unittest to purge offline devices present in ignorelist
+        mock_log: mock of wok_log present in models.cioignore
+        mock_utils: mock of wok.utils imported in models.cioignore
+        """
+        cioignore = CIOIgnoreModel()
+        mock_utils.run_command.return_value = ["", "", 0]
+
+        # verify if run_command get called with the command
+        command = ['cio_ignore', '-p']
+        mock_utils.run_command.assert_called_with(command)
+
+        # verify if log get called
+        mock_log.error.assert_called_with('Sucessfully purge cioignore blacklist offlined devices')
 
     @mock.patch('models.cioignore.platform')
     def test_feature_avaiable(self, mock_platform):
