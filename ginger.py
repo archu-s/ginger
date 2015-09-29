@@ -21,7 +21,7 @@ import json
 import os
 
 from controls import Backup, Capabilities, Firmware, Network, PowerProfiles
-from controls import SanAdapters, Sensors, Sep, Users#, CIOIgnore
+from controls import SanAdapters, Sensors, Sep, Users, CIOIgnore
 from i18n import messages
 from wok.config import PluginPaths
 from wok.root import WokRoot
@@ -46,5 +46,5 @@ class Ginger(WokRoot):
         self.messages = messages
         self.san_adapters = SanAdapters(self.model)
         self.ibm_sep = Sep(self.model)
-        #self.cioignore = CIOIgnore(self.model)
+        self.cioignore = CIOIgnore(self.model)
 

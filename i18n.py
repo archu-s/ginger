@@ -108,7 +108,8 @@ messages = {
     "GINPOWER003E": _("Failed to retrieve power management profiles: \
                        Package 'tuned-adm' is not installed."),
     "GINPOWER004E": _("Error activating power saving profile %(profile)s."),
-    "GS390ADDIGRE": _("Error adding devices into cio-ignore list. rc = %(rc)s, reason = %(reason)s'."),
-    "GS390RMVIGRE": _("Error removing devices into cio-ignore list: rc = %(rc)s, reason = %(reason)s'."),
-    "GS390INVPARAM": _("Invalid parameter: '%(reason)s'.")
+    "GS390ADDIGRE": _("Error adding devices into cio-ignore list. rc = %(rc)s, error = '%(reason)s'."),
+    "GS390RMVIGRE": _("Error removing devices into cio-ignore list: rc = %(rc)s, error = '%(reason)s'."),
+    "GS390INVPARAM": _("Invalid parameter: %(reason)s"),
+    "GS390PURGEIGRE": _("Error purging devices into cio-ignore list: rc = %(rc)s, error = '%(reason)s'.")
 }

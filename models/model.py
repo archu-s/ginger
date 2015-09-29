@@ -62,7 +62,7 @@ class GingerModel(BaseModel):
         cioignore = CIOIgnoreModel()
 
         features = [firmware, backup, network, powerprofiles, san_adapters,
-                    sensors, ibm_sep, users,cioignore]
+                    sensors, ibm_sep, users, cioignore]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -75,5 +75,5 @@ class GingerModel(BaseModel):
             san_adapters, san_adapter,
             sensors,
             ibm_sep, subscription, subscriber,
-            capabilities,cioignore]
+            capabilities, cioignore]
         super(GingerModel, self).__init__(sub_models)

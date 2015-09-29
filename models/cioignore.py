@@ -53,6 +53,7 @@ class CIOIgnoreModel(object):
         # command to add devices into cio_ignore list
         command = [cio_ignore, '-a', devices]
         output, err, rc = utils.run_command(command)
+	err = err.replace("cio_ignore: Error: ",'').strip()
         if rc:
             wok_log.error(err)
             raise OperationFailed('GS390ADDIGRE', {'rc': rc, 'reason': err})
@@ -79,6 +80,7 @@ class CIOIgnoreModel(object):
         # command to add devices into cio_ignore list
         command = [cio_ignore, '-r', devices]
         output, err, rc = utils.run_command(command)
+	err = err.replace("cio_ignore: Error: ",'').strip()
         if rc:
             wok_log.error(err)
             raise OperationFailed('GS390RMVIGRE', {'rc': rc, 'reason': err})
@@ -92,6 +94,7 @@ class CIOIgnoreModel(object):
         # command to purge cioignore blacklist offlined devices
         command = [cio_ignore, '-p']
         output, err, rc = utils.run_command(command)
+	err = err.replace("cio_ignore: Error: ",'').strip()
         if rc:
             wok_log.error(err)
             raise OperationFailed('GS390PGEIGRE', {'rc': rc, 'reason': err})

@@ -26,6 +26,8 @@ from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
 from users import Users
+from cioignore import CIOIgnore
+
 
 __all__ = [
     Backup,
@@ -36,5 +38,6 @@ __all__ = [
     SanAdapters,
     Sensors,
     Sep,
-    Users
+    Users,
+    CIOIgnore
     ]
