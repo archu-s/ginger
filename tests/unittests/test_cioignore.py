@@ -142,13 +142,14 @@ class CIOIgnoreUnitTests(unittest.TestCase):
         """
         cioignore = CIOIgnoreModel()
         mock_utils.run_command.return_value = ["", "", 0]
+	cioignore.purge('')
 
         # verify if run_command get called with the command
         command = ['cio_ignore', '-p']
         mock_utils.run_command.assert_called_with(command)
 
         # verify if log get called
-        mock_log.error.assert_called_with('Sucessfully purge cioignore blacklist offlined devices')
+        mock_log.info.assert_called_with('Sucessfully purge cioignore blacklist offlined devices, rc: 0')
         
     @mock.patch('models.cioignore.utils')
     @mock.patch('models.cioignore.wok_log')
